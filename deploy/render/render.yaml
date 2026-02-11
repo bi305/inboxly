@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: inboxly-api
+    env: docker
+    dockerfilePath: apps/api/Dockerfile
+    autoDeploy: true
+    plan: standard
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: inboxly-postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          name: inboxly-redis
+          type: redis
+          property: connectionString
+      - key: JWT_SECRET
+        sync: false
+      - key: APP_ENCRYPTION_KEY
+        sync: false
+      - key: VERIFY_TOKEN_SECRET
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://inboxly-web.onrender.com
+  - type: web
+    name: inboxly-web
+    env: docker
+    dockerfilePath: apps/web/Dockerfile
+    autoDeploy: true
+    plan: standard
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        value: https://inboxly-api.onrender.com/api
+
+  - type: redis
+    name: inboxly-redis
+    plan: standard
+
+  - type: pserv
+    name: inboxly-postgres
+    plan: standard
+    env: postgres
+    ipAllowList: []

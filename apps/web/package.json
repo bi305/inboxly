@@ -1,0 +1,37 @@
+{
+  "name": "@apps/web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "test": "echo 'web: test skipped'",
+    "test:e2e": "playwright test",
+    "format": "prettier -w .",
+    "gen:api": "openapi-typescript http://localhost:4000/api/docs-json -o lib/api-types.ts"
+  },
+  "dependencies": {
+    "@shared": "workspace:*",
+    "@ui": "workspace:*",
+    "next": "14.2.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "reactflow": "^11.11.4",
+    "zod": "^3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "@types/react": "^18.2.77",
+    "@types/react-dom": "^18.2.25",
+    "autoprefixer": "^10.4.19",
+    "@playwright/test": "^1.44.0",
+    "eslint": "^8.57.0",
+    "eslint-config-next": "14.2.1",
+    "openapi-typescript": "^6.7.5",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.5"
+  }
+}
